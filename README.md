@@ -18,6 +18,10 @@ There is also [Gravy](https://github.com/enterprise-grails/gravy) for using Grai
 
 3. Install any versions of Grails under `.genv/grails` using the version number as the sub-directory name.
 
+4. You can specify default arguments for running Grails by creating a `grails.ini` file in the `genv` directory, e.g. :
+
+        --plain-output
+
 #### Usage
 
 1. Run `genv -h` to see available options.
