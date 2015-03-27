@@ -1,6 +1,6 @@
 #!/bin/sh
 
-GENV_DIR=~/.genv
+GENV_DIR="$(dirname $0)/.."
 GENV_DEFAULT="${GENV_DIR}/.default"
 
 if [ -n "${GRAILS_HOME}" ]; then
