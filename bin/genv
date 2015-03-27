@@ -5,8 +5,9 @@ GENV_DEFAULT="${GENV_DIR}/.default"
 
 usage () {
     echo "Usage genv [OPTION]:"
-    echo "   -l             list installed Grails versions"
     echo "   -d <version>   set default Grails version"
+    echo "   -l             list installed Grails versions"
+    echo "   -v             print default version"
     echo "   -h             show usage"
 }
 
@@ -16,13 +17,22 @@ list_versions () {
     [[ -f "${GENV_DEFAULT}" ]] && echo "> default: $(cat ${GENV_DEFAULT})"
 }
 
+print_default () {
+    if [ ! -f "${GENV_DEFAULT}" ]; then
+        echo "No Grails default set"
+        exit 0
+    fi
+
+    echo "$(cat ${GENV_DEFAULT})"
+}
+
 if [ "$#" -eq 0 ]; then
     list_versions
     exit 1
 fi    
 
 OPTIND=1
-while getopts "hld:" opt; do
+while getopts "hlvd:" opt; do
     case "$opt" in
     h)
         usage
@@ -41,6 +51,10 @@ while getopts "hld:" opt; do
         fi
 
         echo $version > ${GENV_DEFAULT}
+        exit 0
+        ;;
+    v)
+        print_default
         exit 0
         ;;
     '?')
