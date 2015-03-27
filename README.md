@@ -4,9 +4,9 @@ A simple Grails version manager.
 
 It was written to manage Grails versions on Windows using the [Git for Windows](https://msysgit.github.io/) bash shell.
 
-While [GVM](http://gvmtool.net/) offers much more functionality there were some compatibility issues using under `msysgit`. 
+While [GVM](http://gvmtool.net/) offers much more functionality there were some compatibility issues using it under `msysgit`. 
 
-There is also [Gravy](https://github.com/enterprise-grails/gravy) for using grails with the Windows command shell.
+There is also [Gravy](https://github.com/enterprise-grails/gravy) for using Grails with the Windows command shell.
 
 #### Installation
 
