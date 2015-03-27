@@ -1,0 +1,51 @@
+#!/bin/sh
+
+GENV_DIR=~/.genv
+GENV_DEFAULT="${GENV_DIR}/.default"
+
+usage () {
+    echo "Usage genv [OPTION]:"
+    echo "   -l             list installed Grails versions"
+    echo "   -d <version>   set default Grails version"
+    echo "   -h             show usage"
+}
+
+list_versions () {
+    echo "> installed:"
+    cd ${GENV_DIR}/grails && ls -1
+    [[ -f "${GENV_DEFAULT}" ]] && echo "> default: $(cat ${GENV_DEFAULT})"
+}
+
+if [ "$#" -eq 0 ]; then
+    list_versions
+    exit 1
+fi    
+
+OPTIND=1
+while getopts "hld:" opt; do
+    case "$opt" in
+    h)
+        usage
+        exit 0
+        ;;
+    l)
+        list_versions
+        exit 0
+        ;;
+    d)
+        version=$OPTARG
+        grails_dir="${GENV_DIR}/grails/${version}"
+        if [ ! -d "${grails_dir}" ]; then
+            echo "Grails version not found: ${version}" 
+            exit 1
+        fi
+
+        echo $version > ${GENV_DEFAULT}
+        exit 0
+        ;;
+    '?')
+        usage
+        exit 1
+        ;;
+    esac
+done

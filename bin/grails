@@ -1,0 +1,24 @@
+#!/bin/sh
+
+GENV_DIR=~/.genv
+GENV_DEFAULT="${GENV_DIR}/.default"
+
+if [ -n "${GRAILS_HOME}" ]; then
+    grails="${GRAILS_HOME}/bin/grails"
+else
+    if [ ! -f "${GENV_DEFAULT}" ]; then
+        echo "Grails default not set - run 'genv -h'"
+        exit 1
+    fi
+    version="$(cat ${GENV_DEFAULT})"
+    grails="${GENV_DIR}/grails/${version}/bin/grails"  
+fi
+
+if [ ! -f "${grails}" ]; then
+    echo "grails not found: ${grails}"
+    exit 1
+fi
+
+grails_opts="$(cat "${GENV_DIR}/grails.ini" 2> /dev/null)"
+
+${grails} ${grails_opts} $*
